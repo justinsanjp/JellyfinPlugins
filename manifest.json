@@ -1,0 +1,20 @@
+[
+  {
+    "guid": "d42b1d52-f077-4a0b-b74b-8b82495ddc68",
+    "name": "Sub Profiles",
+    "description": "Adds the ability for a single Jellyfin account to manage multiple named sub-profiles with individual preferences.",
+    "overview": "Manage multiple viewing preferences under a single Jellyfin account.",
+    "owner": "justinsanjp",
+    "category": "Accounts",
+    "versions": [
+      {
+        "version": "0.1.0",
+        "changelog": "Initial release",
+        "targetAbi": "10.11.1.0",
+        "sourceUrl": "dist/jellyfin.plugin.subprofiles_0.1.0.zip",
+        "checksum": "46e8f31649e880d579a054ee5c538c858ad0c36c5cc1172b3880cec1ba17357c",
+        "timestamp": "2025-11-13T19:09:43Z"
+      }
+    ]
+  }
+]
