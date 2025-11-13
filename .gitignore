@@ -11,3 +11,5 @@ obj/
 *.sln.docstates
 /.vscode/
 /tmp/
+dist/*
+!dist/.gitkeep
