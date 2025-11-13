@@ -1,0 +1,13 @@
+bin/
+obj/
+**/bin/
+**/obj/
+/.idea/
+/.vs/
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+*.sln.docstates
+/.vscode/
+/tmp/
