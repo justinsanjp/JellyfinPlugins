@@ -5,7 +5,7 @@
   "targetAbi": "10.11.1.0",
   "description": "Adds the ability for a single Jellyfin account to manage multiple named sub-profiles with individual preferences.",
   "category": "Accounts",
-  "owner": "Custom",
+  "owner": "justinsanjp",
   "overview": "Manage multiple viewing preferences under a single Jellyfin account",
   "artifactVersion": 1
 }

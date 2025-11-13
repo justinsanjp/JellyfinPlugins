@@ -4,7 +4,7 @@
     "name": "Sub Profiles",
     "description": "Adds the ability for a single Jellyfin account to manage multiple named sub-profiles with individual preferences.",
     "overview": "Manage multiple viewing preferences under a single Jellyfin account.",
-    "owner": "custom",
+    "owner": "justinsanjp",
     "category": "Accounts",
     "versions": [
       {
