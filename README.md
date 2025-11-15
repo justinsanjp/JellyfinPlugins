@@ -1,50 +1,35 @@
-# JellyfinPlugins
+# Jellyfin Plugins
 
-A repository with custom Jellyfin plugins targeting Jellyfin Server **10.11.1**.
+This repository hosts custom Jellyfin plugins. Each plugin lives under `src/` with its own project file and manifest so it can be built and packaged individually.
 
 ## Sub Profiles Plugin
 
-The `Jellyfin.Plugin.SubProfiles` project adds support for managing multiple sub-profiles under a single Jellyfin user account. Each sub-profile can store its own playback language, subtitle preferences, and arbitrary key/value settings.
+The first plugin included here adds Netflix-style sub profiles. It stores multiple profiles per Jellyfin user and exposes a small REST API so clients can create, update, and remove sub profiles. The project references the Jellyfin 10.11.1 server packages so it can be loaded on that server release.
 
 ### Building
 
-1. Install the .NET 9.0 SDK (the `dotnet-install.sh` script or Microsoft packages can be used). Jellyfin 10.11.x plugins are built against .NET 9.
-2. Restore dependencies and build the solution:
+1. Install the .NET SDK 8.0 or newer.
+2. Restore packages and build the project:
 
    ```bash
-   dotnet restore
-   dotnet build
+   dotnet build src/SubProfiles/Jellyfin.Plugins.SubProfiles.csproj
    ```
 
-3. The compiled plugin library is generated at `src/SubProfiles/bin/Release/net9.0/` alongside the `plugin.json` manifest. Use the packaging step below to create a distributable archive for Jellyfin.
+3. Package the plugin (creates the ZIP expected by Jellyfin 10.11.1):
 
-### Packaging
+   ```bash
+   dotnet publish src/SubProfiles/Jellyfin.Plugins.SubProfiles.csproj -c Release -o bin/publish
+   ```
 
-Run the helper script to compile the plugin and place the packaged archive under `dist/`:
-
-```bash
-scripts/package-subprofiles.sh
-```
-
-The script prints the SHA256 checksum of the resulting archive so you can copy it into `manifest.json` when releasing a new
-version. It requires `python3`, the .NET SDK, and the standard `zip` utility to be available on your PATH.
-
-### Plugin Manifest & Self-Hosting
-
-`manifest.json` enumerates every plugin bundle provided by this repository. Jellyfin servers can subscribe to it by exposing the repository over HTTP. For quick local testing you can serve the repo from the project root with:
-
-```bash
-python -m http.server 8096
-```
-
-Then add `http://<your-host>:8096/manifest.json` as a custom repository in the Jellyfin admin dashboard. The manifest references plugin archives in the `dist/` folder with relative URLs, so make sure the generated `.zip` files exist alongside the manifest before starting the server. The archives are ignored by git, allowing you to host them without committing binary files.
+   The output folder will contain `manifest.json` and the compiled DLL, which can be zipped and installed in Jellyfin.
 
 ### API Overview
 
-Once deployed, the plugin exposes the following authenticated REST endpoints:
+The plugin adds authenticated endpoints under `/SubProfiles`:
 
-- `GET /SubProfiles/{userId}` – Retrieve all sub-profiles for a user.
-- `POST /SubProfiles/{userId}` – Create or update a sub-profile (pass `id` to update).
-- `DELETE /SubProfiles/{userId}/{profileId}` – Remove a sub-profile.
+- `GET /SubProfiles/{userId}` – List sub profiles for a user.
+- `POST /SubProfiles/{userId}` – Create a new sub profile.
+- `PUT /SubProfiles/{userId}/{profileId}` – Update an existing sub profile.
+- `DELETE /SubProfiles/{userId}/{profileId}` – Remove a sub profile.
 
-All sub-profile data is stored within the plugin configuration, ensuring portability with the Jellyfin server configuration backup.
+Requests accept and return JSON representations of sub profiles, which include optional avatar URLs, PINs, and arbitrary custom data fields.
