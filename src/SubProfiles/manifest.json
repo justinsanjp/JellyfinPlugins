@@ -1,0 +1,14 @@
+{
+  "name": "Sub Profiles",
+  "guid": "f91dc702-4fca-4e5c-a44e-45b6fe85eb9c",
+  "version": "1.0.0.0",
+  "targetAbi": "10.11.1",
+  "owner": "Custom",
+  "category": "Accounts",
+  "overview": "Adds multiple sub profiles per Jellyfin user account.",
+  "description": "Provides a REST API for managing sub profiles that can be associated with a single Jellyfin user account.",
+  "imageUrl": "",
+  "changelog": "Initial release with CRUD API for sub profiles.",
+  "assets": [],
+  "dependencies": []
+}
